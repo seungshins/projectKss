@@ -1,0 +1,163 @@
+<% include header.html %>
+<script>
+    $(document).ready(function(){
+        $('#createUser').click(function(){
+            var paramId = $('#id').val();
+            var paramPassword = $('#password').val();
+            createUser(paramId, paramPassword);
+        });
+        
+        $('#retrieveAllUser').click(function(){
+            retrieveAllUser();
+        });
+        
+        $('#retrieveUserById').click(function(){
+            var paramId = $('#id').val();
+            retrieveUserById(paramId);
+        });
+        
+        $('#updateUser').click(function(){
+            var paramId = $('#id').val();
+            var paramPassword = $('#password').val();
+            updateUser(paramId, paramPassword);
+        });
+        
+        $('#deleteUser').click(function(){
+            var paramId = $('#id').val();
+            var paramPassword = $('#password').val();
+            deleteUser(paramId, paramPassword);
+        });
+    });
+    
+    function createUser(userId, password){
+        $.ajax({
+            type:"GET",
+            //TODO : production 모드일때 주소 바꿔줘야함...
+            url: "http://projectkss.seungshins.c9.io/rest/createUser",
+            data: {'user_id' : userId, 'password' : password},
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            jsonpCallback: 'makeUser'
+        });
+    }
+    
+    function retrieveAllUser(){
+        $.ajax({
+            type:"GET",
+            //TODO : production 모드일때 주소 바꿔줘야함...
+            url: "http://projectkss.seungshins.c9.io/rest/retrieveAllUser",
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            jsonpCallback: 'getAllUsers'
+        });
+    }
+    
+    function retrieveUserById(userId){
+        $.ajax({
+            type:"GET",
+            //TODO : production 모드일때 주소 바꿔줘야함...
+            url: "http://projectkss.seungshins.c9.io/rest/retrieveUserById",
+            data: {'user_id' : userId},
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            jsonpCallback: 'getUserById'
+        });
+    }
+    
+    function updateUser(userId, password){
+        $.ajax({
+            type:"GET",
+            //TODO : production 모드일때 주소 바꿔줘야함...
+            url: "http://projectkss.seungshins.c9.io/rest/updateUser",
+            data: {'user_id' : userId, 'password' : password},
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            jsonpCallback: 'changeUser'
+        });
+    }
+    
+    function deleteUser(userId, password){
+        $.ajax({
+            type:"GET",
+            //TODO : production 모드일때 주소 바꿔줘야함...
+            url: "http://projectkss.seungshins.c9.io/rest/deleteUser",
+            data: {'user_id' : userId, 'password' : password},
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            jsonpCallback: 'removeUser'
+        });
+    }
+    
+    function makeUser(data){
+        showApiResult(data);
+    }
+    
+    function getAllUsers(data){
+        showTableInfo(data);
+        showApiResult(data);
+    }
+    
+    function getUserById(data){
+        showTableInfo(data);
+        showApiResult(data);
+    }
+    
+    function changeUser(data){
+        showApiResult(data);
+    }
+    
+    function removeUser(data){
+        showApiResult(data);
+    }
+    
+    function showTableInfo(data){
+        var listTable = $('#list_table');
+        listTable.empty();
+        listTable.append("<tr><th>user_id</th><th>password</th></tr>");
+        for(var i=0; i < data.resData.length ; i++){
+            listTable.append("<tr><td>" + data.resData[i].user_id + "</td>" +
+                             "<td>" +  data.resData[i].password + "</td></tr>");
+        }
+    }
+    
+    function showApiResult(data){
+        var query_result = $('#query_result');
+        query_result.empty();
+        query_result.append("<p>result</p>" + JSON.stringify(data));
+    }
+</script>
+<strong>TB_User Table Info</strong>
+<table id="list_table">
+    <tr>
+        <th>user_id</th>
+        <th>password</th>
+    </tr>
+    <% userInfo.forEach(function(userObj){ %>
+    <tr>
+        <td><%= userObj.user_id %></td>
+        <td><%= userObj.password %></td>
+    </tr>
+    <% }) %>
+</table> 
+
+<form id="my_form">
+    <table>
+        <tr>
+            <td><label for="id">ID</label></td>
+            <td><input id="id" name="id" type="text" value="ss.kim"/></td>
+        </tr>
+        <tr>
+            <td><label for="password">PASSWORD</label></td>
+            <td><input id="password" name="password" type="password"/></td>
+        </tr>
+    </table>
+    <input type="button" id="createUser" value="Create User"><br>
+    <input type="button" id="retrieveAllUser" value="Retrieve User"><br>
+    <input type="button" id="retrieveUserById" value="Retrieve User By Id"><br>
+    <input type="button" id="updateUser" value="Update User"><br>
+    <input type="button" id="deleteUser" value="Delete User"><br>
+</form>
+<div id="query_result">
+    
+</div>
+<% include footer.html %> 
