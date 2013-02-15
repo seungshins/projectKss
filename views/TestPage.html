@@ -1,5 +1,8 @@
 <% include header.html %>
 <script>
+    //server address(must check..)
+    var serverAddress = "http://projectkss.seungshins.c9.io";
+
     $(document).ready(function(){
         $('#createUser').click(function(){
             var paramId = $('#id').val();
@@ -33,7 +36,7 @@
         $.ajax({
             type:"GET",
             //TODO : production 모드일때 주소 바꿔줘야함...
-            url: "http://projectkss.cs98202.c9.io/rest/createUser",
+            url: serverAddress + "/rest/createUser",
             data: {'user_id' : userId, 'password' : password},
             dataType: 'jsonp',
             jsonp: 'callback',
@@ -45,7 +48,7 @@
         $.ajax({
             type:"GET",
             //TODO : production 모드일때 주소 바꿔줘야함...
-            url: "http://projectkss.cs98202.c9.io/rest/retrieveAllUser",
+            url: serverAddress + "/rest/retrieveAllUser",
             dataType: 'jsonp',
             jsonp: 'callback',
             jsonpCallback: 'getAllUsers'
@@ -56,7 +59,7 @@
         $.ajax({
             type:"GET",
             //TODO : production 모드일때 주소 바꿔줘야함...
-            url: "http://projectkss.cs98202.c9.io/rest/retrieveUserById",
+            url: serverAddress + "/rest/retrieveUserById",
             data: {'user_id' : userId},
             dataType: 'jsonp',
             jsonp: 'callback',
@@ -68,7 +71,7 @@
         $.ajax({
             type:"GET",
             //TODO : production 모드일때 주소 바꿔줘야함...
-            url: "http://projectkss.cs98202.c9.io/rest/updateUser",
+            url: serverAddress + "/rest/updateUser",
             data: {'user_id' : userId, 'password' : password},
             dataType: 'jsonp',
             jsonp: 'callback',
@@ -80,7 +83,7 @@
         $.ajax({
             type:"GET",
             //TODO : production 모드일때 주소 바꿔줘야함...
-            url: "http://projectkss.cs98202.c9.io/rest/deleteUser",
+            url: serverAddress + "/rest/deleteUser",
             data: {'user_id' : userId, 'password' : password},
             dataType: 'jsonp',
             jsonp: 'callback',
