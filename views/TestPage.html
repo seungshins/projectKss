@@ -117,9 +117,13 @@
         var listTable = $('#list_table');
         listTable.empty();
         listTable.append("<tr><th>user_id</th><th>password</th></tr>");
-        for(var i=0; i < data.resData.length ; i++){
-            listTable.append("<tr><td>" + data.resData[i].user_id + "</td>" +
-                             "<td>" +  data.resData[i].password + "</td></tr>");
+        if( data.resData !== undefined &&  typeof data.resData.length === 'number'){
+            for(var i=0; i < data.resData.length ; i++){
+                listTable.append("<tr><td>" + data.resData[i].user_id + "</td>" +
+                                 "<td>" +  data.resData[i].password + "</td></tr>");
+            }
+        }else{
+            listTable.append("<tr><td>No Data</td></tr>");
         }
     }
     
