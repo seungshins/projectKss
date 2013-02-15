@@ -1,6 +1,7 @@
 
 /**
- * Module dependencies.
+ * CRUD API Test Server Script
+ * version : v.1.0
  */
 
 var express = require('express')
@@ -14,13 +15,9 @@ var app = module.exports = express.createServer();
 var RestHome = require('./webroot/rest/home');
 
 //mongodb setup
-//var collections = ["TB_USER", "TB_GROUP", "TB_BOOKMARK", "TB_CATEGORY"];
-//var db = require("mongojs").connect(databaseUrl, collections);
-
 var databaseUrl = "dbuser:1234@linus.mongohq.com:10030/TB"; //  "username:password@example.com/mydb"
 var db = require('mongoskin').db(databaseUrl); 
 
-//var messages = [   { name: 'Nathan Explosion', message: 'Dethklok rules' },   { name: 'William Murderface', message: 'Bass is the heart of the band' },   { name: 'Dr. Rockso', message: 'Where is my friend Toki?' } ];
 app.enable("jsonp callback");
 
 // Configuration
@@ -57,6 +54,7 @@ app.get('/', function(req, res){
     });
 }); 
 
+//Api handling
 app.get('/rest/:apiname', RestHome.process);
 
 app.listen(process.env.C9_PORT || 8001);
