@@ -1,16 +1,2 @@
 <주의 사항!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>
-1. testpage를 cloud9에서 테스트 시에는 url: "http://projectkss.seungshins.c9.io/rest/createUser"을 자신의 테스트 주소로 변경해야함.
-
-2. aws 등 서버에 업로드시에도 마찬가지로 타겟 url로 변경해야함
-
-예) function createUser(userId, password){
-        $.ajax({
-            type:"GET",
-            //TODO : production 모드일때 주소 바꿔줘야함...
-            url: "http://projectkss.seungshins.c9.io/rest/createUser",
-            data: {'user_id' : userId, 'password' : password},
-            dataType: 'jsonp',
-            jsonp: 'callback',
-            jsonpCallback: 'makeUser'
-        });
-    }
+1. 없음
