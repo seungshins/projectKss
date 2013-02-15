@@ -33,7 +33,7 @@
         $.ajax({
             type:"GET",
             //TODO : production 모드일때 주소 바꿔줘야함...
-            url: "http://projectkss.seungshins.c9.io/rest/createUser",
+            url: "http://projectkss.cs98202.c9.io/rest/createUser",
             data: {'user_id' : userId, 'password' : password},
             dataType: 'jsonp',
             jsonp: 'callback',
@@ -45,7 +45,7 @@
         $.ajax({
             type:"GET",
             //TODO : production 모드일때 주소 바꿔줘야함...
-            url: "http://projectkss.seungshins.c9.io/rest/retrieveAllUser",
+            url: "http://projectkss.cs98202.c9.io/rest/retrieveAllUser",
             dataType: 'jsonp',
             jsonp: 'callback',
             jsonpCallback: 'getAllUsers'
@@ -56,7 +56,7 @@
         $.ajax({
             type:"GET",
             //TODO : production 모드일때 주소 바꿔줘야함...
-            url: "http://projectkss.seungshins.c9.io/rest/retrieveUserById",
+            url: "http://projectkss.cs98202.c9.io/rest/retrieveUserById",
             data: {'user_id' : userId},
             dataType: 'jsonp',
             jsonp: 'callback',
@@ -68,7 +68,7 @@
         $.ajax({
             type:"GET",
             //TODO : production 모드일때 주소 바꿔줘야함...
-            url: "http://projectkss.seungshins.c9.io/rest/updateUser",
+            url: "http://projectkss.cs98202.c9.io/rest/updateUser",
             data: {'user_id' : userId, 'password' : password},
             dataType: 'jsonp',
             jsonp: 'callback',
@@ -80,7 +80,7 @@
         $.ajax({
             type:"GET",
             //TODO : production 모드일때 주소 바꿔줘야함...
-            url: "http://projectkss.seungshins.c9.io/rest/deleteUser",
+            url: "http://projectkss.cs98202.c9.io/rest/deleteUser",
             data: {'user_id' : userId, 'password' : password},
             dataType: 'jsonp',
             jsonp: 'callback',
