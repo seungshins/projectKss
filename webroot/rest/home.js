@@ -51,18 +51,15 @@ function createUser(req, res){
     console.log("password : " + password);
     
     var resCode;
-    var returnData = {};
     
     //user_id is null
     if(user_id === null || user_id === undefined || user_id === ""){
         resCode = "01";
-        returnData.resCode = resCode;
-        res.send(req.query.callback + '('+ JSON.stringify(returnData) + ');');
+        errHandling(req, res, resCode);
         return;
     }else if(password === null || password === undefined || password === ""){
         resCode = "03";
-        returnData.resCode = resCode;
-        res.send(req.query.callback + '('+ JSON.stringify(returnData) + ');');
+        errHandling(req, res, resCode);
         return;
     }else{
         db.collection('TB_USER').find({'user_id' : user_id}).toArray(function(err, result) {
@@ -70,10 +67,8 @@ function createUser(req, res){
               throw err; 
             }
             if(result !== null && result.length > 0){
-                console.log("already exist");
                 resCode = "02";
-                returnData.resCode = resCode;
-                res.send(req.query.callback + '('+ JSON.stringify(returnData) + ');');
+                errHandling(req, res, resCode);
                 return;
             }else{
                 db.collection('TB_USER').insert({
@@ -83,7 +78,7 @@ function createUser(req, res){
                     if (err) 
                         throw err;
                     if (result){     
-                        var resCode = "00";
+                        resCode = "00";
                         var returnData = {};
                         returnData.resCode = resCode;
                         returnData.resData = result;
@@ -124,9 +119,7 @@ function retrieveUserById(req,res){
     //user_id is null
     if(user_id === null || user_id === undefined || user_id === ""){
         var resCode = "01";
-        var returnData = {};
-        returnData.resCode = resCode;
-        res.send(req.query.callback + '('+ JSON.stringify(returnData) + ');');
+        errHandling(req, res, resCode);
         return;
     }
     
@@ -153,18 +146,15 @@ function retrieveUserById(req,res){
     console.log("password : " + password);
     
     var resCode;
-    var returnData = {};
     
     //user_id is null
     if(user_id === null || user_id === undefined || user_id === ""){
         resCode = "01";
-        returnData.resCode = resCode;
-        res.send(req.query.callback + '('+ JSON.stringify(returnData) + ');');
+        errHandling(req, res, resCode);
         return;
     }else if(password === null || password === undefined || password === ""){
         resCode = "03";
-        returnData.resCode = resCode;
-        res.send(req.query.callback + '('+ JSON.stringify(returnData) + ');');
+        errHandling(req, res, resCode);
         return;
     }else{
         db.collection('TB_USER').update({'user_id' : user_id}, {'user_id' : user_id, 'password': password}, {safe:true}, function(err, result){
@@ -172,6 +162,7 @@ function retrieveUserById(req,res){
                 throw err;
             }else{
                 resCode = "00";
+                var returnData = {};
                 returnData.resCode = resCode;
                 console.log(req.query.callback + '('+ JSON.stringify(returnData)+ ');');
                 res.send(req.query.callback + '('+ JSON.stringify(returnData) + ');');
@@ -190,13 +181,11 @@ function deleteUser(req, res){
     console.log("password : " + password);
     
     var resCode;
-    var returnData = {};
     
     //user_id is null
     if(user_id === null || user_id === undefined || user_id === ""){
         resCode = "01";
-        returnData.resCode = resCode;
-        res.send(req.query.callback + '('+ JSON.stringify(returnData) + ');');
+        errHandling(req, res, resCode);
         return;
     }else{
          db.collection('TB_USER').remove({'user_id' : user_id}, {safe:true}, function(err, result){
@@ -204,6 +193,7 @@ function deleteUser(req, res){
                 throw err;
             }else{
                 resCode = "00";
+                var returnData = {};
                 returnData.resCode = resCode;
                 console.log(req.query.callback + '('+ JSON.stringify(returnData)+ ');');
                 res.send(req.query.callback + '('+ JSON.stringify(returnData) + ');');
@@ -212,4 +202,12 @@ function deleteUser(req, res){
     }
 }
 
- 
+/**
+ * 통신간 모든 Error 처리
+ */
+function errHandling(req, res, resCode){
+    console.log("err : " + resCode);
+    var returnData = {};
+    returnData.resCode = resCode;
+    res.send(req.query.callback + '('+ JSON.stringify(returnData) + ');');
+}
