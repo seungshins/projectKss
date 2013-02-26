@@ -1,8 +1,5 @@
 <% include header.html %>
 <script>
-    //server address(must check..)
-    var serverAddress = "";
-
     $(document).ready(function(){
         $('#createUser').click(function(){
             var paramId = $('#id').val();
@@ -35,8 +32,7 @@
     function createUser(userId, password){
         $.ajax({
             type:"GET",
-            //TODO : production 모드일때 주소 바꿔줘야함...
-            url: serverAddress + "/rest/createUser",
+            url: "/rest/createUser",
             data: {'user_id' : userId, 'password' : password},
             dataType: 'jsonp',
             jsonp: 'callback',
@@ -47,8 +43,7 @@
     function retrieveAllUser(){
         $.ajax({
             type:"GET",
-            //TODO : production 모드일때 주소 바꿔줘야함...
-            url: serverAddress + "/rest/retrieveAllUser",
+            url: "/rest/retrieveAllUser",
             dataType: 'jsonp',
             jsonp: 'callback',
             jsonpCallback: 'getAllUsers'
@@ -58,8 +53,7 @@
     function retrieveUserById(userId){
         $.ajax({
             type:"GET",
-            //TODO : production 모드일때 주소 바꿔줘야함...
-            url: serverAddress + "/rest/retrieveUserById",
+            url: "/rest/retrieveUserById",
             data: {'user_id' : userId},
             dataType: 'jsonp',
             jsonp: 'callback',
@@ -70,8 +64,7 @@
     function updateUser(userId, password){
         $.ajax({
             type:"GET",
-            //TODO : production 모드일때 주소 바꿔줘야함...
-            url: serverAddress + "/rest/updateUser",
+            url: "/rest/updateUser",
             data: {'user_id' : userId, 'password' : password},
             dataType: 'jsonp',
             jsonp: 'callback',
@@ -82,8 +75,7 @@
     function deleteUser(userId, password){
         $.ajax({
             type:"GET",
-            //TODO : production 모드일때 주소 바꿔줘야함...
-            url: serverAddress + "/rest/deleteUser",
+            url: "/rest/deleteUser",
             data: {'user_id' : userId, 'password' : password},
             dataType: 'jsonp',
             jsonp: 'callback',
