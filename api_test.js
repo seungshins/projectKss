@@ -9,7 +9,8 @@ var express = require('express')
   , fs= require('fs')
   , ejs = require('ejs');
 
-var app = module.exports = express.createServer();
+//var app = module.exports = express.createServer();
+var app = express();
 
 var RestHome = require('./webroot/rest/home');
 
@@ -22,6 +23,7 @@ app.enable("jsonp callback");
 // Configuration
 app.configure(function(){
   app.engine('.html', require('ejs').__express);
+  app.set('port',process.env.C9_PORT || 8001);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'html');
   app.use( express.favicon());
@@ -56,5 +58,9 @@ app.get('/', function(req, res){
 //Api handling
 app.get('/rest/:apiname', RestHome.process);
 
-app.listen(process.env.C9_PORT || 8001);
-//console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+http.createServer(app).listen(app.get('port'), function(){
+  console.log("Express server listening on port %d in %s mode", app.get('port'), app.settings.env);
+});
+
+//app.listen(process.env.C9_PORT || 8001);
+//console.log("Express server listening on port %d in %s mode", app.get('port'), app.settings.env);

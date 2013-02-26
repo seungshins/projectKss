@@ -4,7 +4,7 @@
   , "private": true
   , "dependencies": {
       "connect"  : "1.8.7"
-    , "express": ">= 3.0.0"
+    , "express": ">= 3.1.0"
     , "pause" : ">= 0.0.1"
     , "jade": ">= 0.0.1"
     , "mongoskin" : ">= 0.0.1"
